@@ -3,9 +3,9 @@
 permalink:           pretty
 
 # Setup
-title:               typename jon_traits<T>::blog
+title:               typename jon_traits<<T>>::blog
 tagline:             'In templates we trust'
-description:         'A blog focused on C++, Embedded, and developer tooling. Big thanks to everyone working on <a href="http://lanyon.getpoole.com" target="_blank">Lanyon</a> for the theme.'
+description:         'A blog focused on C++, Embedded, and developer tooling.'
 url:                 jontheburger.github.io
 baseurl:             ''
 paginate:            5
