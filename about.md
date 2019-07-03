@@ -4,27 +4,27 @@ title: About
 ---
 
 <p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
+  Jon maintains a strong passion for writing low level software with a focus on performance, expressiveness, and reliability. Modern software engineering is a collaborative effort, so supporting teams with ergonomic embedded tooling and libraries is top priority. He is just as eager to learn from incredible engineers as he is to share ideas, mentor, and collaborate.
+  Lately, he has been enjoying refining his C++ abilities by catching up on major conferences, podcasts, and blogs. He then utilizes this knowledge to try and equip his coworkers with customizable, non-allocating equivalents of various standard library facilities, as well as the tools and knowledge to use them effectively.
 </p>
 
-In the novel, *The Strange Case of Dr. Jeykll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+Thanks for taking the time to visit! I try my best to share the useful and interesting programming and tooling techniques I've gathered in my travels in easily digestible, bite-sized pieces. It's my goal to make world class tooling for C++ accessible to the masses, so hopefully something here will be useful.
 
-There are currently two themes built on Poole:
+## Q&A
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+### How did you get started programming?
 
-Learn more and contribute on [GitHub](https://github.com/poole).
+### Why C++?
 
-## Setup
+### Why CMake?
 
-Some fun facts about the setup of this project include:
+### What
 
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
+## Links
+Like what I do? I also have a presence on the following sites:
 
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
+* [Github](https://github.com/JonTheBurger)
+* [Youtube](https://www.youtube.com/c/JonTheBurger)
+* [Linkedin](https://www.linkedin.com/in/jonathanpovirk/)
 
-Thanks for reading!
+You may also spot me in the wild on /r/cpp or the cpplang slack.
