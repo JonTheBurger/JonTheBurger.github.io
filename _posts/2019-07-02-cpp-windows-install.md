@@ -27,9 +27,9 @@ Don't worry if the versions aren't exactly the same.
     * "C++ CMake tools for Linux"
     * "Embedded and IoT development tools"
 
-3. Click "Install" and buckle up--the download will take some time.
+4. Click "Install" and buckle up--the download will take some time.
 
-4. Install a git client (if you're already familiar with git, a client is not necessary). Git is a popular "source control" program that helps developers track revisions of the code they make, collaborate, and keep backups. Here are some popular options that are free for hobbyists:
+5. Install a git client (if you're already familiar with git, a client is not necessary). Git is a popular "source control" program that helps developers track revisions of the code they make, collaborate, and keep backups. Here are some popular options that are free for hobbyists:
 
     * [GitKraken](https://www.gitkraken.com/download)
     * [Source Tree](https://www.sourcetreeapp.com/)
@@ -37,28 +37,43 @@ Don't worry if the versions aren't exactly the same.
 
 Standard installation options for any of these should be fine.
 
-5. Clone the vcpkg repository using your git client. This is a "package manager"--it will install useful libraries that will let us do more with less code. Open the clone menu for your git client, and provide the following link: [https://github.com/microsoft/vcpkg.git](https://github.com/microsoft/vcpkg.git).
+6. Clone the vcpkg repository using your git client. This is a "package manager"--it will install useful libraries that will let us do more with less code. Open the clone menu for your git client, and provide the following link: [https://github.com/microsoft/vcpkg.git](https://github.com/microsoft/vcpkg.git).
 
-    * GitKraken - "File" -> "Clone" -> "Clone with URL" -> paste link in "URL" -> "Clone the repo!"
-    * Source Tree - "Clone/New" -> "Clone Repository" -> paste link in "Source Path / URL" -> "Clone"
-    * SmartGit - "Project" -> "Clone"... -> paste link in "Repository URL:" -> "Select" -> "Next" -> "Finish"
+    * GitKraken:
+        * Click "File" 
+        * Click "Clone"
+        * Click "Clone with URL"
+        * Paste the vcpkg link in "URL"
+        * Click "Clone the repo!"
+    * Source Tree:
+        * Click "Clone/New"
+        * Click "Clone Repository"
+        * Paste the vcpkg link in "Source Path / URL"
+        * Click "Clone"
+    * SmartGit:
+        * Click "Project"
+        * Click "Clone..."
+        * Paste the vcpkg link in "Repository URL:"
+        * Click "Select"
+        * Click "Next"
+        * Click "Finish"
 
 Note the path of the directory vcpkg was cloned to.
 
-6. Launch the command prompt. You can do this by right clicking the start menu, selecting "Run", typing "cmd", and clicking "OK".
+7. Launch the command prompt. You can do this by right clicking the start menu, selecting "Run", typing "cmd", and clicking "OK".
 
-7. In your cmd, type `cd "<path-to-vcpkg>"`, where `<path-to-vcpkg>` is the directory you cloned vcpkg to.
+8. In your cmd, type `cd "<path-to-vcpkg>"`, where `<path-to-vcpkg>` is the directory you cloned vcpkg to.
 
-8. In your cmd, run `.\bootstrap-vcpkg.bat`
+9. In your cmd, run `.\bootstrap-vcpkg.bat`
 
-9. In your cmd, run `.\vcpkg integrate install`
+10. In your cmd, run `.\vcpkg integrate install`
 
-10. In your cmd, run `.\vcpkg install gtest:x64-windows`
+11. In your cmd, run `.\vcpkg install gtest:x64-windows`
 We have just installed our first package--Google's very own unit testing framework!
 
-11. Create a folder to put your C++ project in. I'll name mine "main".
+12. Create a folder to put your C++ project in. I'll name mine "main".
 
-12. In your "main" folder, create a file named "CMakeLists.txt" with the following contents:
+13. In your "main" folder, create a file named "CMakeLists.txt" with the following contents:
 
 {% highlight cmake %}
 cmake_minimum_required(VERSION 3.5)
@@ -66,7 +81,7 @@ project(main)
 add_executable(main main.cpp)
 {% endhighlight %}
 
-13. In your "main" folder, create a file named "main.cpp" with the following contents:
+14. In your "main" folder, create a file named "main.cpp" with the following contents:
 
 {% highlight cpp %}
 #include <cstdio>
@@ -78,12 +93,12 @@ int main()
 }
 {% endhighlight %}
 
-14. Open Visual Studio, and select "File" -> "Open CMake..." -> `<select your main folder>`
+15. Open Visual Studio, and select "File" -> "Open CMake..." -> `<select your main folder>`
 
-15. In Visual Studio, click on the Configuration drop-down in the main toolbar and choose "Manage Configurations..."
+16. In Visual Studio, click on the Configuration drop-down in the main toolbar and choose "Manage Configurations..."
 
 ![Figure 3 - Thanks, Microsoft](https://docs.microsoft.com/en-us/cpp/build/media/vs2019-cmake-manage-configurations.png?view=vs-2019)
 
-16. In "CMake toolchain file:", paste `<vcpkg-clone-dir>/scripts/buildsystems/vcpkg.cmake`
+17. In "CMake toolchain file:", paste `<vcpkg-clone-dir>/scripts/buildsystems/vcpkg.cmake`
 
-17. Click on the Play button at the top of the page. You should see a console window containing the text "Hello, world!");
+18. Click on the Play button at the top of the page. You should see a console window containing the text "Hello, world!");
