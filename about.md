@@ -24,16 +24,16 @@ Yes--meson and build2 look nice, but for now, cmake is the closest thing we've h
 ### What are some of your favorite technical resources or discussions?
 In roughly alphabetical order:
 **Articles/Blogs**
-- [GCC Command Options](https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html)
-- [Clang command line argument reference](https://clang.llvm.org/docs/ClangCommandLineReference.html)
-
 - [A Heavily Commented Linux Kernel Source Code](http://www.oldlinux.org/download/ECLK-5.0-WithCover.pdf)
 - [ARM Cortex-M, Interrupts and FreeRTOS: Part 1](https://mcuoneclipse.com/2016/08/14/arm-cortex-m-interrupts-and-freertos-part-1/)
 - [Better Macros, Better Flags](https://www.fluentcpp.com/2019/05/28/better-macros-better-flags/)
 - [Building Bare-Metal ARM Systems with GNU: Part 1 - Getting Started](https://www.embedded.com/design/mcus-processors-and-socs/4007119/Building-Bare-Metal-ARM-Systems-with-GNU-Part-1--Getting-Started)
 - [Building the Convex Hull](http://www.drdobbs.com/architecture-and-design/building-the-convex-hull/201806315?pgno=1)
+- [C99 Standard](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf)
+- [Clang command line argument reference](https://clang.llvm.org/docs/ClangCommandLineReference.html)
 - [Creating a Fody Add-in](https://intellitect.com/creating-fody-addin/)
 - [GBA Development](http://sebastianmihai.com/main.php?t=40)
+- [GCC Command Options](https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html)
 - [Game Programming Patterns](http://gameprogrammingpatterns.com/contents.html)
 - [How Does the Internet Work?](https://web.stanford.edu/class/msande91si/www-spr04/readings/week1/InternetWhitepaper.htm)
 - [How to Build a JRPG: A Primer for Game Developers](https://gamedevelopment.tutsplus.com/articles/how-to-build-a-jrpg-a-primer-for-game-developers--gamedev-6676#state)

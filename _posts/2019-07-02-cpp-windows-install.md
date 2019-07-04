@@ -10,7 +10,7 @@ So you want to start programming with C++ and you're using Windows. Great! Micro
 1. Go to [https://visualstudio.microsoft.com/](https://visualstudio.microsoft.com/) and download "Visual Studio 2019 - Community". This will be our integrated development environment (IDE) for C++. Like Microsoft Word, but for code. The community edition is free for hobbyists.
 2. You should see a screen that resembles the following:
 
-[Figure 1](public/2019-07-02-01.png)
+![Figure 1](public/2019-07-02-01.png)
 
 If you're crunched for disk space, you can just select the following:
 
@@ -22,7 +22,7 @@ Don't worry if the versions aren't exactly the same.
 
 3. Optionally, if you're interested in programming for Linux or IoT, select the following:
 
-[Figure 2](public/2019-07-02-02.png)
+![Figure 2](public/2019-07-02-02.png)
 
     * "C++ CMake tools for Linux"
     * "Embedded and IoT development tools"
@@ -82,7 +82,7 @@ int main()
 
 15. In Visual Studio, click on the Configuration drop-down in the main toolbar and choose "Manage Configurations..."
 
-[Figure 3](https://docs.microsoft.com/en-us/cpp/build/media/vs2019-cmake-manage-configurations.png?view=vs-2019)
+![Figure 3 - Thanks, Microsoft](https://docs.microsoft.com/en-us/cpp/build/media/vs2019-cmake-manage-configurations.png?view=vs-2019)
 
 16. In "CMake toolchain file:", paste `<vcpkg-clone-dir>/scripts/buildsystems/vcpkg.cmake`
 
