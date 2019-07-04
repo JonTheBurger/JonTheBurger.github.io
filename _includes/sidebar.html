@@ -25,12 +25,13 @@
       {% endif %}
     {% endfor %}
 
-    <span class="sidebar-nav-item">External</span>
+    <span class="sidebar-nav-item"></span>
     <a class="sidebar-nav-item" href="https://github.com/JonTheBurger">GitHub</a>
     <a class="sidebar-nav-item" href="https://www.youtube.com/c/JonTheBurger">Youtube</a>
     <a class="sidebar-nav-item" href="https://www.linkedin.com/in/jonathanpovirk/">Linkedin</a>
     <a class="sidebar-nav-item" href="mailto: Jonathan.Povirk@pitt.edu">Email</a>
-    <a class="sidebar-nav-item" href="/atom.xml">v{{ site.version }}</a>
+    <a class="sidebar-nav-item" href="{{ site.baseurl }}/atom.xml">v{{ site.version }}</a>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
   </nav>
 
   <div class="sidebar-item">
