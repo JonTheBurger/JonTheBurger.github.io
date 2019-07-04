@@ -3,9 +3,11 @@
 permalink:           pretty
 
 # Setup
-title:               typename jon_traits<<T>>::blog
+title:               'typename jon_traits<T>::blog'
 tagline:             'In templates we trust'
-description:         'A blog focused on C++, Embedded, and developer tooling.'
+description:         'A blog focused on C++, Embedded, and developer tooling.
+  #ifndef JON_TRAITS_HPP
+  #define JON_TRAITS_HPP'
 url:                 jontheburger.github.io
 baseurl:             ''
 paginate:            5
