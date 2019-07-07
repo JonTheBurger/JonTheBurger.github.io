@@ -8,7 +8,7 @@ title: About
   Lately, he has been enjoying refining his C++ abilities by catching up on major conferences, podcasts, and blogs. He then utilizes this knowledge to try and equip his coworkers with customizable, non-allocating equivalents of various standard library facilities, as well as the tools and knowledge to use them effectively.
 </p>
 
-Thanks for taking the time to visit! I try my best to share the useful and interesting programming and tooling techniques I've gathered in my travels in easily digestible, bite-sized pieces. It's my goal to make world class tooling for C++ accessible to the masses, so hopefully something here will be useful.
+Thanks for taking the time to visit! I try my best to share the useful and interesting programming and tooling techniques I've gathered in my travels in easily digestible, bite-sized pieces. It's my goal to make ergonomic tooling for C++ accessible to the masses, so hopefully something here will be useful. That being said, most of this blog will be informal, since it largely serves as reference for friends and coworkers.
 
 ## Q&A
 
