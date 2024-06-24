@@ -193,7 +193,7 @@ really doing? No, not at all. However, I will probably want a
 `DRAG_TYPE_ELLIPSE` eventually, so I'll add one. This is a natural time to
 discuss the next point:
 
-**2. Use the code base's preferred tools until when starting out.** As you gain
+**2. Use the code-base's preferred tools until when starting out.** As you gain
 more experience and better understand tooling in general, you can break this
 rule*. However, to get up and running quickly, I want to know auto-complete and
 debugging will work out of the box.
@@ -244,63 +244,143 @@ is going to be the hard part. We need to understand the draw rect function:
 
 ```cpp
 HashMap<Vector2i, TileMapCell> TileMapEditorTilesPlugin::_draw_ellipse(Vector2i p_start_cell, Vector2i p_end_cell, bool p_erase) {
-	TileMap *tile_map = Object::cast_to<TileMap>(ObjectDB::get_instance(tile_map_id));
-	if (!tile_map) {
-		return HashMap<Vector2i, TileMapCell>();
-	}
+TileMap *tile_map = Object::cast_to<TileMap>(ObjectDB::get_instance(tile_map_id));
+if (!tile_map) {
+	return HashMap<Vector2i, TileMapCell>();
+}
 
-	Ref<TileSet> tile_set = tile_map->get_tileset();
-	if (!tile_set.is_valid()) {
-		return HashMap<Vector2i, TileMapCell>();
-	}
+Ref<TileSet> tile_set = tile_map->get_tileset();
+if (!tile_set.is_valid()) {
+	return HashMap<Vector2i, TileMapCell>();
+}
 
-	// Create the rect to draw.
-	Rect2i rect = Rect2i(p_start_cell, p_end_cell - p_start_cell).abs();
-	rect.size += Vector2i(1, 1);
+// Create the rect to draw.
+Rect2i rect = Rect2i(p_start_cell, p_end_cell - p_start_cell).abs();
+rect.size += Vector2i(1, 1);
 
-	// Get or create the pattern.
-	Ref<TileMapPattern> erase_pattern;
-	erase_pattern.instantiate();
-	erase_pattern->set_cell(Vector2i(0, 0), TileSet::INVALID_SOURCE, TileSetSource::INVALID_ATLAS_COORDS, TileSetSource::INVALID_TILE_ALTERNATIVE);
-	Ref<TileMapPattern> pattern = p_erase ? erase_pattern : selection_pattern;
+// Get or create the pattern.
+Ref<TileMapPattern> erase_pattern;
+erase_pattern.instantiate();
+erase_pattern->set_cell(Vector2i(0, 0), TileSet::INVALID_SOURCE, TileSetSource::INVALID_ATLAS_COORDS, TileSetSource::INVALID_TILE_ALTERNATIVE);
+Ref<TileMapPattern> pattern = p_erase ? erase_pattern : selection_pattern;
 
-	HashMap<Vector2i, TileMapCell> err_output;
-	ERR_FAIL_COND_V(pattern->is_empty(), err_output);
+HashMap<Vector2i, TileMapCell> err_output;
+ERR_FAIL_COND_V(pattern->is_empty(), err_output);
+```
 
-	// Compute the offset to align things to the bottom or right.
-	bool aligned_right = p_end_cell.x < p_start_cell.x;
-	bool valigned_bottom = p_end_cell.y < p_start_cell.y;
-	Vector2i offset = Vector2i(aligned_right ? -(pattern->get_size().x - (rect.get_size().x % pattern->get_size().x)) : 0, valigned_bottom ? -(pattern->get_size().y - (rect.get_size().y % pattern->get_size().y)) : 0);
+Most of this code is common between `_draw_rect` and `_draw_bucket_fill`, so for
+now we'll assume they're not relevant (sans the `Rect2i` lines).
 
-	HashMap<Vector2i, TileMapCell> output;
-	if (!pattern->is_empty()) {
-		if (!p_erase && random_tile_toggle->is_pressed()) {
-			// Paint a random tile.
-			for (int x = 0; x < rect.size.x; x++) {
-				for (int y = 0; y < rect.size.y; y++) {
-					Vector2i coords = rect.position + Vector2i(x, y);
-					output.insert(coords, _pick_random_tile(pattern));
-				}
+```cpp
+// Compute the offset to align things to the bottom or right.
+bool aligned_right = p_end_cell.x < p_start_cell.x;
+bool valigned_bottom = p_end_cell.y < p_start_cell.y;
+Vector2i offset = Vector2i(aligned_right ? -(pattern->get_size().x - (rect.get_size().x % pattern->get_size().x)) : 0, valigned_bottom ? -(pattern->get_size().y - (rect.get_size().y % pattern->get_size().y)) : 0);
+
+HashMap<Vector2i, TileMapCell> output;
+if (!pattern->is_empty()) {
+	if (!p_erase && random_tile_toggle->is_pressed()) {
+		// Paint a random tile.
+		for (int x = 0; x < rect.size.x; x++) {
+			for (int y = 0; y < rect.size.y; y++) {
+				Vector2i coords = rect.position + Vector2i(x, y);
+				output.insert(coords, _pick_random_tile(pattern));
 			}
-		} else {
-			// Paint the pattern.
-			TypedArray<Vector2i> used_cells = pattern->get_used_cells();
-			for (int x = 0; x <= rect.size.x / pattern->get_size().x; x++) {
-				for (int y = 0; y <= rect.size.y / pattern->get_size().y; y++) {
-					Vector2i pattern_coords = rect.position + Vector2i(x, y) * pattern->get_size() + offset;
-					for (int j = 0; j < used_cells.size(); j++) {
-						Vector2i coords = pattern_coords + used_cells[j];
-						if (rect.has_point(coords)) {
-							output.insert(coords, TileMapCell(pattern->get_cell_source_id(used_cells[j]), pattern->get_cell_atlas_coords(used_cells[j]), pattern->get_cell_alternative_tile(used_cells[j])));
-						}
+		}
+	} else {
+		// Paint the pattern.
+		TypedArray<Vector2i> used_cells = pattern->get_used_cells();
+		for (int x = 0; x <= rect.size.x / pattern->get_size().x; x++) {
+			for (int y = 0; y <= rect.size.y / pattern->get_size().y; y++) {
+				Vector2i pattern_coords = rect.position + Vector2i(x, y) * pattern->get_size() + offset;
+				for (int j = 0; j < used_cells.size(); j++) {
+					Vector2i coords = pattern_coords + used_cells[j];
+					if (rect.has_point(coords)) {
+						output.insert(coords, TileMapCell(pattern->get_cell_source_id(used_cells[j]), pattern->get_cell_atlas_coords(used_cells[j]), pattern->get_cell_alternative_tile(used_cells[j])));
 					}
 				}
 			}
 		}
 	}
+}
 
-	return output;
+return output;
 }
 ```
 
---------------------------------------------------------------------------------
+That doesn't look too bad! But how would I draw an Ellipse? I'm neither a
+computer graphics programmer by trade, nor the first person to encounter this
+problem. Unfortunately, I can't seem to locate an easy `draw_ellipse` or
+`draw_arc` elsewhere in the Godot code-base that is easy for me to cannibalize.
+A quick google search of "draw ellipse algorithm" tells me to learn more about
+"Midpoint Algorithms," specifically Bresenham's. Time to hit the books! In
+short, the algorithm seems to plot a point, see which pixel is closer, then
+select that pixel. It looks like you can simplify a lot of the math as well,
+particularly when working with integers. I just want to see an ellipse get
+drawn, so I'm going to adapt [Bresenham from zingl](https://zingl.github.io/bresenham.html).
+
+```cpp
+int32_t x0 = p_start_cell.x;
+int32_t y0 = p_start_cell.y;
+int32_t x1 = p_end_cell.x;
+int32_t y1 = p_end_cell.y;
+int32_t a = abs(x1-x0), b = abs(y1-y0), b1 = b&1; /* values of diameter */
+int64_t dx = 4*(1-a)*b*b, dy = 4*(b1+1)*a*a; /* error increment */
+int64_t err = dx+dy+b1*a*a, e2; /* error of 1.step */
+
+if (x0 > x1) { x0 = x1; x1 += a; } /* if called with swapped points */
+if (y0 > y1) y0 = y1; /* .. exchange them */
+y0 += (b+1)/2; y1 = y0-b1;   /* starting pixel */
+a *= 8*a; b1 = 8*b*b;
+
+do {
+	output.insert(Vector2i(x1, y0), TileMapCell(pattern->get_cell_source_id(used_cells[0]), pattern->get_cell_atlas_coords(used_cells[0]), pattern->get_cell_alternative_tile(used_cells[0])));
+	output.insert(Vector2i(x0, y0), TileMapCell(pattern->get_cell_source_id(used_cells[0]), pattern->get_cell_atlas_coords(used_cells[0]), pattern->get_cell_alternative_tile(used_cells[0])));
+	output.insert(Vector2i(x0, y1), TileMapCell(pattern->get_cell_source_id(used_cells[0]), pattern->get_cell_atlas_coords(used_cells[0]), pattern->get_cell_alternative_tile(used_cells[0])));
+	output.insert(Vector2i(x1, y1), TileMapCell(pattern->get_cell_source_id(used_cells[0]), pattern->get_cell_atlas_coords(used_cells[0]), pattern->get_cell_alternative_tile(used_cells[0])));
+	//setPixel(x1, y0); /*   I. Quadrant */
+	//setPixel(x0, y0); /*  II. Quadrant */
+	//setPixel(x0, y1); /* III. Quadrant */
+	//setPixel(x1, y1); /*  IV. Quadrant */
+	e2 = 2*err;
+	if (e2 <= dy) { y0++; y1--; err += dy += a; }  /* y step */
+	if (e2 >= dx || 2*err > dy) { x0++; x1--; err += dx += b1; } /* x step */
+} while (x0 <= x1);
+
+while (y0-y1 < b) {  /* too early stop of flat ellipses a=1 */
+	output.insert(Vector2i(x0 - 1, y0), TileMapCell(pattern->get_cell_source_id(used_cells[0]), pattern->get_cell_atlas_coords(used_cells[0]), pattern->get_cell_alternative_tile(used_cells[0])));
+	output.insert(Vector2i(x1 + 1, y0++), TileMapCell(pattern->get_cell_source_id(used_cells[0]), pattern->get_cell_atlas_coords(used_cells[0]), pattern->get_cell_alternative_tile(used_cells[0])));
+	output.insert(Vector2i(x0 - 1, y1), TileMapCell(pattern->get_cell_source_id(used_cells[0]), pattern->get_cell_atlas_coords(used_cells[0]), pattern->get_cell_alternative_tile(used_cells[0])));
+	output.insert(Vector2i(x1 + 1, y1--), TileMapCell(pattern->get_cell_source_id(used_cells[0]), pattern->get_cell_atlas_coords(used_cells[0]), pattern->get_cell_alternative_tile(used_cells[0])));
+	//setPixel(x0-1, y0); /* -> finish tip of ellipse */
+	//setPixel(x1+1, y0++);
+	//setPixel(x0-1, y1);
+	//setPixel(x1+1, y1--);
+}
+```
+
+It's not production quality (it's missing tests, doesn't account for selecting
+multiple source tiles, and doesn't implement random tiles), but it kind of
+works! With very limited knowledge and a couple of hours (mostly spent on
+trying to understand an algorithm), I was able to tweak Godot to add something
+I desperately wanted for years.
+
+![]({{ site.baseurl }}/public/ellipse-work.gif)
+
+The Godot developers deserve some serious props for organizing their project
+such that a game programming ignoramus like myself could get hacking on the
+editor so productively in such a short time. Since I didn't run into an organic
+case to cite the last two lessons, I'll expound upon them here:
+
+**4. Take the code at its word.** If a function says that it accesses data from
+a tile map, great! You don't need to look at the guts of that function until you
+have cause to suspect it's doing something wrong, and only do so then. Computers
+are largely deterministic - use this fact to your advantage. The more you can
+file away into your box of "knowns," the easier it will be to navigate a
+code-base.
+
+**5. Code tells a story.** If something looks funky in the code, assume it
+exists for good reason. It's _possible_ the author before you was a dumb dumb no
+nothing, but it's much safer to assume they added the weird statement for a very
+specific reason. `git blame` can help you get to the bottom of mysteries as
+well, so keep it in your tool belt!
